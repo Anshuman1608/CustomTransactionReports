@@ -2,17 +2,24 @@ package com.example.demo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Embeddable
+@Entity
 @Table(name = "merchantpreferences")
 public class MerchantPreferences {
 	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@Column(name = "preferid")
-//	private Integer preferId;
-//	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "preferid")
+	private Integer preferId;
+	
 	@Column(name = "merchantid")
 	private Integer merchantId;
 	
@@ -28,7 +35,9 @@ public class MerchantPreferences {
 	@Column(name = "custname")
 	private String custName;
 
-    private Merchant merchants;
+	@JoinColumn(name = "merchantid", insertable = false, updatable = false, nullable = false)
+    @ManyToOne(targetEntity = Merchant.class, fetch = FetchType.EAGER)
+	private Merchant merchants;
 	
 	public MerchantPreferences() {
 		

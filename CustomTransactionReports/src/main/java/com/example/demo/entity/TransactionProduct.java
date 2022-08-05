@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,24 +38,13 @@ public class TransactionProduct {
 	@Column(name = "totalamount")
 	private double totalAmount;
 	
+	@JoinColumn(name = "transactionid", insertable = false, updatable = false, nullable = false)
+    @ManyToOne(targetEntity = AllTransactions.class, fetch = FetchType.EAGER)
+	private AllTransactions transacts;
+	
 	public TransactionProduct() {
 		
 	}
-
-	
-		
-	public TransactionProduct(Integer transactionId, Integer custId, String custName, Integer productId, Integer quantity,
-			double totalAmount) {
-		super();
-		this.transactionId = transactionId;
-		this.custId = custId;
-		this.custName = custName;
-		this.productId = productId;
-		this.quantity = quantity;
-		this.totalAmount = totalAmount;
-	}
-
-
 
 	public Integer getTransactionId() {
 		return transactionId;
@@ -103,7 +93,27 @@ public class TransactionProduct {
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
-	
-	
 
+	public AllTransactions getTransacts() {
+		return transacts;
+	}
+
+	public void setTransacts(AllTransactions transacts) {
+		this.transacts = transacts;
+	}
+
+	public TransactionProduct(Integer transactionId, Integer custId, String custName, Integer productId,
+			Integer quantity, double totalAmount, AllTransactions transacts) {
+		super();
+		this.transactionId = transactionId;
+		this.custId = custId;
+		this.custName = custName;
+		this.productId = productId;
+		this.quantity = quantity;
+		this.totalAmount = totalAmount;
+		this.transacts = transacts;
+	}
+	
+	
+		
 }

@@ -31,6 +31,7 @@ public class Merchant {
 	@Column(name = "password")
 	private String password;
 	
+	@OneToMany(mappedBy = "merchants")
 	private Set<MerchantPreferences> merchprefer = new HashSet<>();
 	
 	public Merchant() {

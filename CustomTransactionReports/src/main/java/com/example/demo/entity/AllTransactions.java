@@ -1,11 +1,15 @@
 package com.example.demo.entity;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,18 +33,11 @@ public class AllTransactions {
 	@Column(name = "pincode")
 	private long pinCode;
 	
+	@OneToMany(mappedBy = "transacts")
+	private Set<TransactionProduct> transproduct = new HashSet<>();
 	
 	public AllTransactions() {
 		
-	}
-
-	public AllTransactions(Integer transactionId, Integer merchantId, String billingAddress, String timeStamp, long pinCode) {
-		super();
-		this.transactionId = transactionId;
-		this.merchantId = merchantId;
-		this.billingAddress = billingAddress;
-		this.timeStamp = timeStamp;
-		this.pinCode = pinCode;
 	}
 
 	public Integer getTransactionId() {
@@ -82,5 +79,26 @@ public class AllTransactions {
 	public void setPinCode(long pinCode) {
 		this.pinCode = pinCode;
 	}
+
+	public Set<TransactionProduct> getTransproduct() {
+		return transproduct;
+	}
+
+	public void setTransproduct(Set<TransactionProduct> transproduct) {
+		this.transproduct = transproduct;
+	}
+
+	public AllTransactions(Integer transactionId, Integer merchantId, String billingAddress, String timeStamp,
+			long pinCode, Set<TransactionProduct> transproduct) {
+		super();
+		this.transactionId = transactionId;
+		this.merchantId = merchantId;
+		this.billingAddress = billingAddress;
+		this.timeStamp = timeStamp;
+		this.pinCode = pinCode;
+		this.transproduct = transproduct;
+	}
+
+	
 	
 }
